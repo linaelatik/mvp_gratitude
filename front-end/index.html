@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Gratitude App</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="container">
+      <h1>My Gratitude App</h1>
+
+      <!-- Input Prompt -->
+      <p>What are 10 things you are grateful for?</p>
+      <input
+        id="gratitude-input"
+        type="text"
+        placeholder="Enter a gratitude item and press Enter"
+      />
+
+      <!-- Displayed Gratitude Items -->
+      <ul id="gratitude-list"></ul>
+
+      <!-- Email & Submit Section -->
+      <div id="email-section" style="display: none;">
+        <p>Great! Please enter your email address so we can send daily reminders:</p>
+        <input id="email-input" type="email" placeholder="Your Email" />
+        <button id="submit-btn">Submit</button>
+      </div>
+
+      <!-- Completion Message -->
+      <div id="completion-message" style="display: none;">
+        <h2>Thank you!</h2>
+        <p>We'll send you a random gratitude reminder every day.</p>
+      </div>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>
