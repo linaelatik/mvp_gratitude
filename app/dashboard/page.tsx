@@ -38,12 +38,37 @@ export default function Dashboard() {
     setEntries(newEntries)
   }
 
-  const handleSave = () => {
+  const handleSave = async () => {
     setIsSaving(true)
-    // Simulate saving
-    setTimeout(() => {
+    console.log('Starting save process...') // Debug log
+    try {
+      // Save each non-empty entry
+      const promises = entries.filter(entry => entry.trim()).map(async (content) => {
+        console.log('Sending entry:', content) // Debug log
+        const response = await fetch('http://localhost:3001/api/entries', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ content }),
+        })
+        
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`)
+        }
+        const result = await response.json()
+        console.log('Entry saved:', result) // Debug log
+        return result
+      })
+      
+      await Promise.all(promises)
       setIsSaving(false)
-    }, 1000)
+      // Clear entries after successful save
+      setEntries([''])
+    } catch (error) {
+      console.error('Error saving entries:', error)
+      setIsSaving(false)
+    }
   }
 
   const today = new Date().toLocaleDateString("en-US", {
@@ -99,15 +124,12 @@ export default function Dashboard() {
               )}
 
               <div className="flex justify-end mt-6">
-                <Button onClick={handleSave} className="bg-emerald-600 hover:bg-emerald-700" disabled={isSaving}>
-                  {isSaving ? (
-                    <>Saving...</>
-                  ) : (
-                    <>
-                      <Save className="mr-2 h-4 w-4" />
-                      Save entries
-                    </>
-                  )}
+                <Button 
+                  onClick={handleSave} 
+                  disabled={isSaving || entries.every(entry => !entry.trim())}
+                  className="mt-4"
+                >
+                  {isSaving ? 'Saving...' : 'Save Entries'}
                 </Button>
               </div>
             </div>
