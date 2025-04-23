@@ -1,0 +1,6 @@
+CREATE TABLE IF NOT EXISTS gratitude_entries (
+  id SERIAL PRIMARY KEY,
+  content TEXT NOT NULL,
+  user_email VARCHAR(255),
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
