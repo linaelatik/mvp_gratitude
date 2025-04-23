@@ -1,0 +1,23 @@
+# macOS system files
+.DS_Store
+
+# Node modules
+node_modules/
+server/node_modules/
+
+# Logs
+*.log
+
+# Env files
+.env
+
+# Build artifacts
+dist/
+build/
+
+# Optional: VSCode settings
+.vscode/
+
+# Optional: npm or yarn lock if not using both
+package-lock.json
+yarn.lock
